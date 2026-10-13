@@ -14,11 +14,11 @@ throughout the day, maximizing energy generation.
 - Implement motor control to automatically reorient the solar panel toward the strongest light source
 - Demonstrate improved light collection compared to a fixed position solar panel
 
-This project focuses on the design and implementation of a small scale solar tracking sys-
-tem using the PIC18F46K22 microncontroller, light sensors, an LCD display, and a motorized
+This project focuses on the design and implementation of a small scale solar tracking system 
+using the PIC18F46K22 microncontroller, light sensors, an LCD display, and a motorized
 rotation mechanism. The system will continuously monitor light intensity, display real time
-sensor readings, and determine the direction of the strongest light source.Based on the sensor
+sensor readings, and determine the direction of the strongest light source. Based on the sensor
 inputs, the microcontroller will control a motor that repositions the solar panel to improve light
-capture. The project includes sensor interfacing, motor control, LCD communication, embed-
-ded software development, and system integration. Testing will be conducted under controlled
+capture. The project includes sensor interfacing, motor control, LCD communication, embedded software 
+development, and system integration. Testing will be conducted under controlled
 lighting conditions to evaluate the system’s tracking performance and responsiveness.
