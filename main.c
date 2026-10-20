@@ -11,6 +11,8 @@
 #include "PIC18F46K22-Config.h"
 #include "LCD.h"
 
+#define _XTAL_FREQ 16000000UL   // 16 MHz HFINTOSC
+
 void main(void) {
     return;
 }
