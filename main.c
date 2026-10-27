@@ -8,13 +8,17 @@
 
 #include <xc.h>
 #include <stdint.h>
-
+#include "servos.h"
+#include "photoresistor.h"  // change name to the photoresistor header file
 #include "PIC18F46K22-Config.h"
 #include "LCD.h"
 
 void display_solar_values(float voltage,
                           float power,
                           uint8_t sun_percent)
+#define DEADZONE 50
+#define AZ_SPEED 25
+
 {
     // First LCD row: voltage
     LCD_cursor_set(1, 1);
