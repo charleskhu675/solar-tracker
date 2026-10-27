@@ -41,9 +41,22 @@ void main(void)
     float voltage = 12.50f;
     float power = 25.75f;
     uint8_t sun_percent = 80;
+    //photoresistor readings
+     uint16_t topLeft, topRight;
+    uint16_t bottomLeft, bottomRight;
 
+    // Light differences
+    int horizontalError;
+    int verticalError;
+
+  // Initial elevation angle
+    uint8_t elevationAngle = 90;
+
+  
     // Initialize the LCD
     LCD_init();
+     photoresistor_init();
+    servo_init();
 
     while (1)
     {
