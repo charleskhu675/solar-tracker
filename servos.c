@@ -92,40 +92,39 @@ void servo_set_elevation_angle(uint8_t angle) {
     el_us = us;
     INTCONbits.GIE = 1;
 }
-/* Example application
-void main(void)
+// Example Demo
+/* void main(void)
 {
     servo_init();
 
     servo_set_azimuth_speed(0);
-    servo_set_elevation_angle(0);
+    servo_set_elevation_angle(90);
     __delay_ms(1000);
 
     while (1) {
         uint8_t el_angle;
 
         // Sweep forward: azimuth rotates CW slowly, elevation 0 -> 180
-        servo_set_azimuth_speed(30);
-        for (el_angle = 0; el_angle < 180; el_angle += 2) {
+        servo_set_azimuth_speed(60);
+        __delay_ms(750);
+        servo_set_azimuth_speed(0);
+        __delay_ms(50);
+        
+        for (el_angle = 90; el_angle > 0; el_angle -= 5) {
             servo_set_elevation_angle(el_angle);
             __delay_ms(50);
         }
-        servo_set_elevation_angle(180);
-
-        // Pause both
+        
+        servo_set_azimuth_speed(-60);
+        __delay_ms(500);
         servo_set_azimuth_speed(0);
-        __delay_ms(1000);
-
-        // Sweep backward: azimuth rotates CCW slowly, elevation 180 -> 0
-        servo_set_azimuth_speed(-30);
-        for (el_angle = 180; el_angle > 0; el_angle -= 2) {
+        __delay_ms(50);
+        
+        for (el_angle = 0; el_angle < 90; el_angle += 5) {
             servo_set_elevation_angle(el_angle);
             __delay_ms(50);
         }
-        servo_set_elevation_angle(0);
-
-        servo_set_azimuth_speed(0);
-        __delay_ms(1000);
+        
     }
 }
 */
