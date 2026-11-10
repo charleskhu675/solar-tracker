@@ -9,7 +9,6 @@
 #include <xc.h>
 #include <stdint.h>
 #include "servos.h"
-#include "photoresistor.h"  // change name to the photoresistor header file
 #include "PIC18F46K22-Config.h"
 #include "LCD.h"
 
@@ -35,33 +34,43 @@ void display_solar_values(float voltage,
     LCD_write_string("%  ");
 }
 
+void photoresistor_init(void);
+uint16_t photoresistor_read(uint8_t channel);
+void ldr_error(int16_t *errorX, int16_t *errorY);
+void horizontal_control(int16_t errorX);
+void vertical_control(int16_t errorY);
+
 void main(void)
 {
     // Temporary test values
     float voltage = 12.50f;
     float power = 25.75f;
     uint8_t sun_percent = 80;
-    //photoresistor readings
-     uint16_t topLeft, topRight;
-    uint16_t bottomLeft, bottomRight;
 
     // Light differences
-    int horizontalError;
-    int verticalError;
+    int16_t horizontalError;
+    int16_t verticalError;
 
-  // Initial elevation angle
-    uint8_t elevationAngle = 90;
-
+  // Initial servo 
+     servo_set_azimuth_speed(0);
+    servo_set_elevation_angle(90);
   
-    // Initialize the LCD
+    // Initialize
     LCD_init();
-     photoresistor_init();
+    photoresistor_init();
     servo_init();
 
     while (1)
     {
+        //read photoresistor
+        ldr_error(&horizontalError, &verticalError);
+
+        // servo control
+        horizontal_control(horizontalError);
+        vertical_control(verticalError);
+
         display_solar_values(voltage, power, sun_percent);
 
-        __delay_ms(500);
+        __delay_ms(20);
     }
 }
