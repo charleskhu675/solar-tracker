@@ -5,11 +5,11 @@
 #include "LCD.h"
 
 #define _XTAL_FREQ 16000000UL
-#define DEADZONE 20
+#define DEADZONE 50
 
 void photoresistor_init() {
-    ANSELA |= 0x0F;
-    TRISA |= 0x0F;
+    ANSELA |= 0xFF;
+    TRISA |= 0xFF;
 
     ADCON0 = 0x01;
     ADCON1 = 0x00;
@@ -26,10 +26,10 @@ uint16_t photoresistor_read(uint8_t channel) {
 }
 
 void ldr_error(int16_t *errorX, int16_t *errorY) {
-    uint16_t TL = photoresistor_read(0);
-    uint16_t TR = photoresistor_read(1);
-    uint16_t BL = photoresistor_read(2);
-    uint16_t BR = photoresistor_read(3);
+    uint16_t TL = photoresistor_read(1);
+    uint16_t TR = photoresistor_read(2);
+    uint16_t BL = photoresistor_read(3);
+    uint16_t BR = photoresistor_read(4);
 
     *errorX = ((int16_t)TL + BL - TR - BR) / 2;
     *errorY = ((int16_t)TL + TR - BL - BR) / 2;
@@ -51,7 +51,7 @@ void vertical_control(int16_t errorY) {
     static uint8_t angle = 90;
 
     if (errorY > DEADZONE) {
-        if (angle < 180) {
+        if (angle < 95) {
             angle++;
         }
     }
