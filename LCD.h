@@ -11,10 +11,10 @@
     
     #define LCD_RS_TRIS TRISDbits.TRISD0  //TRIS bit of the pin connected to "RS"
     #define LCD_EN_TRIS TRISDbits.TRISD2  //TRIS bit of the pin connected to "EN"
-    #define LCD_D4_TRIS TRISAbits.TRISA4  //TRIS bit of the pin connected to "D4"
-    #define LCD_D5_TRIS TRISAbits.TRISA5  //TRIS bit of the pin connected to "D5"
-    #define LCD_D6_TRIS TRISAbits.TRISA6  //TRIS bit of the pin connected to "D6"
-    #define LCD_D7_TRIS TRISAbits.TRISA7  //TRIS bit of the pin connected to "D7"
+    #define LCD_D4_TRIS TRISAbits.TRISD4  //TRIS bit of the pin connected to "D4"
+    #define LCD_D5_TRIS TRISAbits.TRISD5  //TRIS bit of the pin connected to "D5"
+    #define LCD_D6_TRIS TRISAbits.TRISD6  //TRIS bit of the pin connected to "D6"
+    #define LCD_D7_TRIS TRISAbits.TRISD7  //TRIS bit of the pin connected to "D7"
 
     #define LCD_RS_LAT LATDbits.LATD0  //LAT bit of the pin connected to "RS"
     #define LCD_EN_LAT LATDbits.LATD2  //LAT bit of the pin connected to "EN"
