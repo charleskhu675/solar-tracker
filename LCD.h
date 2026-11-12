@@ -6,7 +6,7 @@
     /*************** Update the definitions below accordingly *****************/
     /**************************************************************************/
     
-    // Pin assignments per Lab 5 Figure 1 schematic:
+    //   Pin assignments:
     //   RS = RD0, EN = RD2, D4 = RA4, D5 = RA5, D6 = RA6, D7 = RA7
     
     #define LCD_RS_TRIS TRISDbits.TRISD0  //TRIS bit of the pin connected to "RS"
