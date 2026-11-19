@@ -12,47 +12,51 @@
 #include "PIC18F46K22-Config.h"
 #include "LCD.h"
 
-void display_solar_values(float voltage,
-                          float power,
-                          uint8_t sun_percent)
 #define DEADZONE 50
 #define AZ_SPEED 25
+#define SOLAR_PANEL_ADC_CHANNEL 11
+#define ADC_COUNTS 1023
+#define ADC_VREF_VOLTS 5.0
 
+uint16_t photoresistor_read(uint8_t channel);
+
+void display_solar_values(uint8_t adc_channel)
 {
-    // First LCD row: voltage
+    uint16_t adc_reading = photoresistor_read(adc_channel);
+
+    if (adc_reading > ADC_COUNTS) {
+        adc_reading = ADC_COUNTS;
+    }
+
+    float voltage = ((float)adc_reading * ADC_VREF_VOLTS) / ADC_COUNTS;
+    uint8_t sun_percent = (uint8_t)(((uint32_t)adc_reading * 100) / ADC_COUNTS);
+
+    // First row: voltage
     LCD_cursor_set(1, 1);
     LCD_write_string("V:");
     LCD_write_float(voltage, 0, 2);
     LCD_write_string("V       ");
 
-    // Second LCD row: power and sunlight percentage
+    // Second row: sunlight percentage
     LCD_cursor_set(2, 1);
-    LCD_write_string("P:");
-    LCD_write_float(power, 0, 2);
-    LCD_write_string("W S:");
+    LCD_write_string("Sunlight:");
     LCD_write_variable(sun_percent, 0);
-    LCD_write_string("%  ");
+    LCD_write_string("%      ");
 }
 
 void photoresistor_init(void);
-uint16_t photoresistor_read(uint8_t channel);
 void ldr_error(int16_t *errorX, int16_t *errorY);
 void horizontal_control(int16_t errorX);
 void vertical_control(int16_t errorY);
 
 void main(void)
 {
-    // Temporary test values
-    float voltage = 12.50f;
-    float power = 25.75f;
-    uint8_t sun_percent = 80;
-
     // Light differences
     int16_t horizontalError;
     int16_t verticalError;
 
-  // Initial servo 
-     servo_set_azimuth_speed(0);
+    // Initial servo 
+    servo_set_azimuth_speed(0);
     servo_set_elevation_angle(90);
   
     // Initialize
@@ -62,14 +66,14 @@ void main(void)
 
     while (1)
     {
-        //read photoresistor
+        // read photoresistor
         ldr_error(&horizontalError, &verticalError);
 
         // servo control
         horizontal_control(horizontalError);
         vertical_control(verticalError);
 
-        display_solar_values(voltage, power, sun_percent);
+        display_solar_values(SOLAR_PANEL_ADC_CHANNEL);
 
         __delay_ms(20);
     }
